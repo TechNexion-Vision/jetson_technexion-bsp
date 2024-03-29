@@ -17,34 +17,12 @@
 
 ## Support Camera Modules
 
-#### MIPI Cameras
-- TEVS-AR0144-C
-- TEVS-AR0234-C
-- TEVS-AR0521-C
-- TEVS-AR0522-C
-- TEVS-AR0522-M
-- TEVS-AR0821-C
-- TEVS-AR1335-C
+| **Camera Series** | **Products** |
+| --- | --- |
+| TEVS | TEVS-AR0144-C<br>TEVS-AR0234-C<br>TEVS-AR0521-C<br>TEVS-AR0522-C<br>TEVS-AR0522-M<br>TEVS-AR0821-C<br>TEVS-AR1335-C |
+| TEVI (NRND) | TEVI-AR0144-C<br>TEVI-AR0234-C<br>TEVI-AR0521-C<br>TEVI-AR0522-C<br>TEVI-AR0522-M<br>TEVI-AR0821-C<br>TEVI-AR1335-C<br>TEVI-OV5640 |
+| VLS3 | VLS3-AR0144-C<br>VLS3-AR0234-C<br>VLS3-AR0521-C<br>VLS3-AR0522-C<br>VLS3-AR0522-M<br>VLS3-AR0821-C<br>VLS3-AR1335-C|
 
-- *TEVI-AR0144-C
-- *TEVI-AR0234-C
-- *TEVI-AR0521-C
-- *TEVI-AR0522-C
-- *TEVI-AR0522-M
-- *TEVI-AR0821-C
-- *TEVI-AR1335-C
-- *TEVI-OV5640
-
-(*NOTE:* * represent for reaching EOL soon.)
-
-#### FPD-LINK Cameras
-- VLS3-AR0144-C
-- VLS3-AR0234-C
-- VLS3-AR0521-C
-- VLS3-AR0522-C
-- VLS3-AR0522-M
-- VLS3-AR0821-C
-- VLS3-AR1335-C
 
 [More Camera Products Details...](https://www.technexion.com/products/embedded-vision)
 ## Supported NVIDIA Jetson Developer Kit
