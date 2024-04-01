@@ -93,7 +93,7 @@ tar -xf tn_camera_modules.tar.gz
 
 ```shell'
 cd tn_camera_modules/
-sh tn_install.sh
+./tn_install.sh
 ```
 
 4. After you agree to continue the installation, select the pre-installed modules that you want. The default module is TEVS cameras.
