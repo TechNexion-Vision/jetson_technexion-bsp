@@ -356,6 +356,7 @@ static int vh_configure_des_csi(struct vh_st *this)
 {
 	struct device *dev = &this->i2c_client->dev;
 	u32 temp1;
+	u32 aeq_floor_val = 0;
 	u8 temp2;
 	u8 des_csi_lanes;
 	u8 des_csi_continuous_clock;
@@ -402,6 +403,18 @@ static int vh_configure_des_csi(struct vh_st *this)
 		des_csi_continuous_clock = 0;
 	}
 
+	ret = of_property_read_u32(dev->of_node,
+				   "aeq_floor_val",
+				   &aeq_floor_val);
+	if (ret != 0) {
+		dev_warn(dev,
+			"Not found property of device node 'aeq_floor_val' "
+			"AEQ floor value: 0\n");
+		aeq_floor_val = 0;
+	}
+	else
+		dev_dbg(dev, "AEQ Floor Value: %d\n", aeq_floor_val);
+
 	//0x33 //Set CSI-2 Transmit enable (and Continuous clock if desired) in CSI_CTL register
 	__i2c_read(this->i2c_client, 0x33, &temp2, 1);
 	temp2 &= ~(0x3 << 4);
@@ -418,6 +431,8 @@ static int vh_configure_des_csi(struct vh_st *this)
 	// __i2c_write(this->i2c_client, 0x20, (0xf0 & ~(1 << (this->connect_port + 4))));
 	__i2c_write(this->i2c_client, 0x20, temp2);
 	// __i2c_write(this->i2c_client, 0x21, 0x6);
+	__i2c_write(this->i2c_client, 0xD5, (0xF0 | aeq_floor_val));
+	__i2c_write(this->i2c_client, 0xD2, 0x9C); // Restart AEQ
 
 	return 0;
 }
