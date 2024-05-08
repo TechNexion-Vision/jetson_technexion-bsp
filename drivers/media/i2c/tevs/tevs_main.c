@@ -257,6 +257,7 @@
 #define TEVS_BSL_MODE_FLASH_IDX 			(1U << 0)
 
 #define DEFAULT_HEADER_VERSION 3
+#define TEVS_BOOT_TIME						(250)
 #define TOTAL_MICROSEC_PERSEC               (1000000)
 
 struct header_info {
@@ -581,7 +582,7 @@ static int tevs_power_on(struct camera_common_data *s_data)
 	dev_dbg(tevs->dev, "%s()\n", __func__);
 
 	gpiod_set_value_cansleep(tevs->reset_gpio, 1);
-	msleep(250);
+	msleep(TEVS_BOOT_TIME);
 
 	ret = tevs_check_boot_state(tevs);
 	if(ret != 0)
@@ -2373,7 +2374,7 @@ static int tevs_setup(struct tevs *tevs)
 	ret = tevs_i2c_write_16b(tevs,
 				HOST_COMMAND_ISP_CTRL_MIPI_FREQ,
 				tevs->data_frequency);
-	msleep(250);
+	msleep(TEVS_BOOT_TIME);
 	if (tevs_check_boot_state(tevs) != 0) {
 		dev_err(tevs->dev, "check tevs bootup status failed\n");
 		return -EINVAL;
