@@ -10,75 +10,75 @@
 #define DRIVER_NAME "tevs"
 
 /* Define host command register of TEVS information page */
-#define HOST_COMMAND_TEVS_INFO_VERSION_MSB                      (0x3000)
-#define HOST_COMMAND_TEVS_INFO_VERSION_LSB                      (0x3002)
-#define HOST_COMMAND_TEVS_BOOT_STATE                            (0x3004)
+#define HOST_COMMAND_TEVS_INFO_VERSION_MSB 						(0x3000)
+#define HOST_COMMAND_TEVS_INFO_VERSION_LSB 						(0x3002)
+#define HOST_COMMAND_TEVS_BOOT_STATE 							(0x3004)
 
 /* Define host command register of ISP control page */
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_WIDTH                     (0x3100)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_HEIGHT                    (0x3102)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_FORMAT                    (0x3104)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE               (0x3106)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_THROUGHPUT                (0x3108)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS                   (0x310A)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB        (0x310C)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB        (0x310E)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB          (0x3110)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB          (0x3112)
-#define HOST_COMMAND_ISP_CTRL_PREVIEW_HINF_CTRL                 (0x3114)
-#define HOST_COMMAND_ISP_CTRL_AE_MODE                           (0x3116)
-#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MSB                      (0x3118)
-#define HOST_COMMAND_ISP_CTRL_EXP_TIME_LSB                      (0x311A)
-#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MAX_MSB                  (0x311C)
-#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MAX_LSB                  (0x311E)
-#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MIN_MSB                  (0x3120)
-#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MIN_LSB                  (0x3122)
-#define HOST_COMMAND_ISP_CTRL_EXP_GAIN                          (0x3124)
-#define HOST_COMMAND_ISP_CTRL_EXP_GAIN_MAX                      (0x3126)
-#define HOST_COMMAND_ISP_CTRL_EXP_GAIN_MIN                      (0x3128)
-#define HOST_COMMAND_ISP_CTRL_CURRENT_EXP_TIME_MSB              (0x312A)
-#define HOST_COMMAND_ISP_CTRL_CURRENT_EXP_TIME_LSB              (0x312C)
-#define HOST_COMMAND_ISP_CTRL_CURRENT_EXP_GAIN                  (0x312E)
-#define HOST_COMMAND_ISP_CTRL_BACKLIGHT_COMPENSATION            (0x3130)
-#define HOST_COMMAND_ISP_CTRL_BACKLIGHT_COMPENSATION_MAX        (0x3132)
-#define HOST_COMMAND_ISP_CTRL_BACKLIGHT_COMPENSATION_MIN        (0x3134)
-#define HOST_COMMAND_ISP_CTRL_AWB_MODE                          (0x3136)
-#define HOST_COMMAND_ISP_CTRL_AWB_TEMP                          (0x3138)
-#define HOST_COMMAND_ISP_CTRL_AWB_TEMP_MAX                      (0x313A)
-#define HOST_COMMAND_ISP_CTRL_AWB_TEMP_MIN                      (0x313C)
-#define HOST_COMMAND_ISP_CTRL_BRIGHTNESS                        (0x313E)
-#define HOST_COMMAND_ISP_CTRL_BRIGHTNESS_MAX                    (0x3140)
-#define HOST_COMMAND_ISP_CTRL_BRIGHTNESS_MIN                    (0x3142)
-#define HOST_COMMAND_ISP_CTRL_CONTRAST                          (0x3144)
-#define HOST_COMMAND_ISP_CTRL_CONTRAST_MAX                      (0x3146)
-#define HOST_COMMAND_ISP_CTRL_CONTRAST_MIN                      (0x3148)
-#define HOST_COMMAND_ISP_CTRL_SATURATION                        (0x314A)
-#define HOST_COMMAND_ISP_CTRL_SATURATION_MAX                    (0x314C)
-#define HOST_COMMAND_ISP_CTRL_SATURATION_MIN                    (0x314E)
-#define HOST_COMMAND_ISP_CTRL_GAMMA                             (0x3150)
-#define HOST_COMMAND_ISP_CTRL_GAMMA_MAX                         (0x3152)
-#define HOST_COMMAND_ISP_CTRL_GAMMA_MIN                         (0x3154)
-#define HOST_COMMAND_ISP_CTRL_DENOISE                           (0x3156)
-#define HOST_COMMAND_ISP_CTRL_DENOISE_MAX                       (0x3158)
-#define HOST_COMMAND_ISP_CTRL_DENOISE_MIN                       (0x315A)
-#define HOST_COMMAND_ISP_CTRL_SHARPEN                           (0x315C)
-#define HOST_COMMAND_ISP_CTRL_SHARPEN_MAX                       (0x315E)
-#define HOST_COMMAND_ISP_CTRL_SHARPEN_MIN                       (0x3160)
-#define HOST_COMMAND_ISP_CTRL_FLIP                              (0x3162)
-#define HOST_COMMAND_ISP_CTRL_EFFECT                            (0x3164)
-#define HOST_COMMAND_ISP_CTRL_ZOOM_TYPE                         (0x3166)
-#define HOST_COMMAND_ISP_CTRL_ZOOM_TIMES                        (0x3168)
-#define HOST_COMMAND_ISP_CTRL_ZOOM_TIMES_MAX                    (0x316A)
-#define HOST_COMMAND_ISP_CTRL_ZOOM_TIMES_MIN                    (0x316C)
-#define HOST_COMMAND_ISP_CTRL_CT_X                              (0x316E)
-#define HOST_COMMAND_ISP_CTRL_CT_Y                              (0x3170)
-#define HOST_COMMAND_ISP_CTRL_CT_MAX                            (0x3172)
-#define HOST_COMMAND_ISP_CTRL_CT_MIN                            (0x3174)
-#define HOST_COMMAND_ISP_CTRL_SYSTEM_START                      (0x3176)
-#define HOST_COMMAND_ISP_CTRL_ISP_RESET                         (0x3178)
-#define HOST_COMMAND_ISP_CTRL_TRIGGER_MODE                      (0x317A)
-#define HOST_COMMAND_ISP_CTRL_FLICK_CTRL                        (0x317C)
-#define HOST_COMMAND_ISP_CTRL_MIPI_FREQ                         (0x317E)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_WIDTH 					(0x3100)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_HEIGHT 					(0x3102)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_FORMAT 					(0x3104)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE 				(0x3106)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_THROUGHPUT 				(0x3108)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS 					(0x310A)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB 		(0x310C)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB 		(0x310E)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB 			(0x3110)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB 			(0x3112)
+#define HOST_COMMAND_ISP_CTRL_PREVIEW_HINF_CTRL 				(0x3114)
+#define HOST_COMMAND_ISP_CTRL_AE_MODE 							(0x3116)
+#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MSB 						(0x3118)
+#define HOST_COMMAND_ISP_CTRL_EXP_TIME_LSB 						(0x311A)
+#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MAX_MSB 					(0x311C)
+#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MAX_LSB 					(0x311E)
+#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MIN_MSB 					(0x3120)
+#define HOST_COMMAND_ISP_CTRL_EXP_TIME_MIN_LSB 					(0x3122)
+#define HOST_COMMAND_ISP_CTRL_EXP_GAIN						 	(0x3124)
+#define HOST_COMMAND_ISP_CTRL_EXP_GAIN_MAX 						(0x3126)
+#define HOST_COMMAND_ISP_CTRL_EXP_GAIN_MIN 						(0x3128)
+#define HOST_COMMAND_ISP_CTRL_CURRENT_EXP_TIME_MSB 				(0x312A)
+#define HOST_COMMAND_ISP_CTRL_CURRENT_EXP_TIME_LSB 				(0x312C)
+#define HOST_COMMAND_ISP_CTRL_CURRENT_EXP_GAIN 					(0x312E)
+#define HOST_COMMAND_ISP_CTRL_BACKLIGHT_COMPENSATION 			(0x3130)
+#define HOST_COMMAND_ISP_CTRL_BACKLIGHT_COMPENSATION_MAX 		(0x3132)
+#define HOST_COMMAND_ISP_CTRL_BACKLIGHT_COMPENSATION_MIN 		(0x3134)
+#define HOST_COMMAND_ISP_CTRL_AWB_MODE 							(0x3136)
+#define HOST_COMMAND_ISP_CTRL_AWB_TEMP 							(0x3138)
+#define HOST_COMMAND_ISP_CTRL_AWB_TEMP_MAX 						(0x313A)
+#define HOST_COMMAND_ISP_CTRL_AWB_TEMP_MIN 						(0x313C)
+#define HOST_COMMAND_ISP_CTRL_BRIGHTNESS 						(0x313E)
+#define HOST_COMMAND_ISP_CTRL_BRIGHTNESS_MAX 					(0x3140)
+#define HOST_COMMAND_ISP_CTRL_BRIGHTNESS_MIN 					(0x3142)
+#define HOST_COMMAND_ISP_CTRL_CONTRAST 							(0x3144)
+#define HOST_COMMAND_ISP_CTRL_CONTRAST_MAX 						(0x3146)
+#define HOST_COMMAND_ISP_CTRL_CONTRAST_MIN 						(0x3148)
+#define HOST_COMMAND_ISP_CTRL_SATURATION 						(0x314A)
+#define HOST_COMMAND_ISP_CTRL_SATURATION_MAX 					(0x314C)
+#define HOST_COMMAND_ISP_CTRL_SATURATION_MIN 					(0x314E)
+#define HOST_COMMAND_ISP_CTRL_GAMMA 							(0x3150)
+#define HOST_COMMAND_ISP_CTRL_GAMMA_MAX 						(0x3152)
+#define HOST_COMMAND_ISP_CTRL_GAMMA_MIN 						(0x3154)
+#define HOST_COMMAND_ISP_CTRL_DENOISE 							(0x3156)
+#define HOST_COMMAND_ISP_CTRL_DENOISE_MAX 						(0x3158)
+#define HOST_COMMAND_ISP_CTRL_DENOISE_MIN 						(0x315A)
+#define HOST_COMMAND_ISP_CTRL_SHARPEN 							(0x315C)
+#define HOST_COMMAND_ISP_CTRL_SHARPEN_MAX 						(0x315E)
+#define HOST_COMMAND_ISP_CTRL_SHARPEN_MIN 						(0x3160)
+#define HOST_COMMAND_ISP_CTRL_FLIP 								(0x3162)
+#define HOST_COMMAND_ISP_CTRL_EFFECT 							(0x3164)
+#define HOST_COMMAND_ISP_CTRL_ZOOM_TYPE 						(0x3166)
+#define HOST_COMMAND_ISP_CTRL_ZOOM_TIMES 						(0x3168)
+#define HOST_COMMAND_ISP_CTRL_ZOOM_TIMES_MAX 					(0x316A)
+#define HOST_COMMAND_ISP_CTRL_ZOOM_TIMES_MIN 					(0x316C)
+#define HOST_COMMAND_ISP_CTRL_CT_X 								(0x316E)
+#define HOST_COMMAND_ISP_CTRL_CT_Y 								(0x3170)
+#define HOST_COMMAND_ISP_CTRL_CT_MAX 							(0x3172)
+#define HOST_COMMAND_ISP_CTRL_CT_MIN 							(0x3174)
+#define HOST_COMMAND_ISP_CTRL_SYSTEM_START 						(0x3176)
+#define HOST_COMMAND_ISP_CTRL_ISP_RESET 						(0x3178)
+#define HOST_COMMAND_ISP_CTRL_TRIGGER_MODE 						(0x317A)
+#define HOST_COMMAND_ISP_CTRL_FLICK_CTRL					 	(0x317C)
+#define HOST_COMMAND_ISP_CTRL_MIPI_FREQ 						(0x317E)
 
 /* Define host command register of ISP bootdata page */
 #define HOST_COMMAND_ISP_BOOTDATA_1                             (0x4000)
@@ -173,6 +173,11 @@
 #define TEVS_GAMMA_MAX 							HOST_COMMAND_ISP_CTRL_GAMMA_MAX
 #define TEVS_GAMMA_MIN 							HOST_COMMAND_ISP_CTRL_GAMMA_MIN
 #define TEVS_GAMMA_MASK 						(0xFFFF)
+#define TEVS_MAX_FPS							HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS
+#define TEVS_MAX_FPS_MASK 						(0x00FF)
+#define TEVS_AE_AUTO_EXP_TIME_UPPER				HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB
+#define TEVS_AE_AUTO_EXP_TIME_MAX				HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB
+#define TEVS_AE_AUTO_EXP_TIME_MASK				(0xFFFFFFFF)
 #define TEVS_AE_MANUAL_EXP_TIME 				HOST_COMMAND_ISP_CTRL_EXP_TIME_MSB
 #define TEVS_AE_MANUAL_EXP_TIME_MAX 			HOST_COMMAND_ISP_CTRL_EXP_TIME_MAX_MSB
 #define TEVS_AE_MANUAL_EXP_TIME_MIN 			HOST_COMMAND_ISP_CTRL_EXP_TIME_MIN_MSB
@@ -242,7 +247,11 @@
 #define TEVS_DZ_CT_MAX 							HOST_COMMAND_ISP_CTRL_CT_MAX
 #define TEVS_DZ_CT_MIN 							HOST_COMMAND_ISP_CTRL_CT_MIN
 
-#define V4L2_CID_TEVS_BSL_MODE            (V4L2_CID_USER_BASE + 44)
+#define V4L2_CID_USER_TEVS_BASE				(V4L2_CID_USER_BASE + 0x2000)
+#define V4L2_CID_TEVS_BSL_MODE				(V4L2_CID_USER_TEVS_BASE + 0)
+#define V4L2_CID_TEVS_MAX_FPS				(V4L2_CID_USER_TEVS_BASE + 1)
+#define V4L2_CID_TEVS_AE_EXP_TIME_UPPER		(V4L2_CID_USER_TEVS_BASE + 2)
+#define V4L2_CID_TEVS_AE_EXP_TIME_MAX		(V4L2_CID_USER_TEVS_BASE + 3)
 #define TEVS_TRIGGER_CTRL_MODE_MASK 		(0x0001)
 #define TEVS_BSL_MODE_NORMAL_IDX 		    (0U << 0)
 #define TEVS_BSL_MODE_FLASH_IDX 			(1U << 0)
@@ -1068,6 +1077,70 @@ static int tevs_get_gamma_min(struct tevs *tevs, s64 *value)
 	return 0;
 }
 
+static int tevs_set_ae_auto_exp_upper(struct tevs *tevs, s32 value)
+{
+	u8 val[4];
+	__be32 temp;
+	int ret;
+
+	temp = cpu_to_be32(value);
+	memcpy(val, &temp, 4);
+
+	ret = tevs_i2c_write(tevs,
+				   TEVS_AE_AUTO_EXP_TIME_UPPER,
+				   val, 4);
+	if (ret)
+		return ret;
+
+	return 0;
+}
+
+static int tevs_get_ae_auto_exp_upper(struct tevs *tevs, s32 *value)
+{
+	u8 val[4] = { 0 };
+	int ret;
+
+	ret = tevs_i2c_read(tevs,
+				  TEVS_AE_AUTO_EXP_TIME_UPPER, val, 4);
+	if (ret)
+		return ret;
+
+	*value = be32_to_cpup((__be32*)val);
+	return 0;
+}
+
+static int tevs_set_ae_auto_exp_max(struct tevs *tevs, s32 value)
+{
+	u8 val[4];
+	__be32 temp;
+	int ret;
+
+	temp = cpu_to_be32(value);
+	memcpy(val, &temp, 4);
+
+	ret = tevs_i2c_write(tevs,
+				   TEVS_AE_AUTO_EXP_TIME_MAX,
+				   val, 4);
+	if (ret)
+		return ret;
+
+	return 0;
+}
+
+static int tevs_get_ae_auto_exp_max(struct tevs *tevs, s32 *value)
+{
+	u8 val[4] = { 0 };
+	int ret;
+
+	ret = tevs_i2c_read(tevs,
+				  TEVS_AE_AUTO_EXP_TIME_MAX, val, 4);
+	if (ret)
+		return ret;
+
+	*value = be32_to_cpup((__be32*)val);
+	return 0;
+}
+
 static int tevs_set_exposure(struct tevs *tevs, s32 value)
 {
 	u8 val[4];
@@ -1721,6 +1794,12 @@ static int tevs_s_ctrl(struct v4l2_ctrl *ctrl)
 	case V4L2_CID_GAMMA:
 		return tevs_set_gamma(tevs, ctrl->val);
 
+	case V4L2_CID_TEVS_AE_EXP_TIME_UPPER:
+		return tevs_set_ae_auto_exp_upper(tevs, ctrl->val);
+
+	case V4L2_CID_TEVS_AE_EXP_TIME_MAX:
+		return tevs_set_ae_auto_exp_max(tevs, ctrl->val);
+
 	case V4L2_CID_EXPOSURE:
 		return tevs_set_exposure(tevs, ctrl->val);
 
@@ -1788,6 +1867,12 @@ static int tevs_g_ctrl(struct v4l2_ctrl *ctrl)
 
 	case V4L2_CID_GAMMA:
 		return tevs_get_gamma(tevs, &ctrl->val);
+
+	case V4L2_CID_TEVS_AE_EXP_TIME_UPPER:
+		return tevs_get_ae_auto_exp_upper(tevs, &ctrl->val);
+
+	case V4L2_CID_TEVS_AE_EXP_TIME_MAX:
+		return tevs_get_ae_auto_exp_max(tevs, &ctrl->val);
 
 	case V4L2_CID_EXPOSURE:
 		return tevs_get_exposure(tevs, &ctrl->val);
@@ -2028,6 +2113,26 @@ static const struct v4l2_ctrl_config tevs_ctrls[] = {
 		.def = TEVS_BSL_MODE_NORMAL_IDX,
 		.qmenu = bsl_mode_strings,
 	},
+	{
+		.ops = &tevs_ctrl_ops,
+		.id = V4L2_CID_TEVS_AE_EXP_TIME_UPPER,
+		.name = "AE_ExpTime_Upper",
+		.type = V4L2_CTRL_TYPE_INTEGER,
+		.min = 0x0,
+		.max = 0xF4240,
+		.step = 1,
+		.def = 0x8235, // 33333 us
+	},
+	{
+		.ops = &tevs_ctrl_ops,
+		.id = V4L2_CID_TEVS_AE_EXP_TIME_MAX,
+		.name = "AE_ExpTime_Max",
+		.type = V4L2_CTRL_TYPE_INTEGER,
+		.min = 0x0,
+		.max = 0xF4240,
+		.step = 1,
+		.def = 0x8235, // 33333 us
+	},
 };
 
 static int tevs_ctrls_init(struct tevs *tevs)
@@ -2083,6 +2188,8 @@ static int tevs_ctrls_init(struct tevs *tevs)
 			break;
 
 		case V4L2_CID_EXPOSURE:
+		case V4L2_CID_TEVS_AE_EXP_TIME_UPPER:
+		case V4L2_CID_TEVS_AE_EXP_TIME_MAX:
 			tevs_get_exposure_max(tevs, &ctrl->maximum);
 			tevs_get_exposure_min(tevs, &ctrl->minimum);
 			break;
