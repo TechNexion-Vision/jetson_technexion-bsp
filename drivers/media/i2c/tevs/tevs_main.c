@@ -509,7 +509,7 @@ int tevs_init_setting(struct tevs *tevs)
 
 static int tevs_standby(struct tevs *tevs, int enable)
 {
-	u16 v = 0;
+	u16 v = 0xFFFF;
 	int timeout = 0;
 	dev_dbg(tevs->dev, "%s():enable=%d\n", __func__, enable);
 
