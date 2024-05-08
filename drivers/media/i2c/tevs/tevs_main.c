@@ -248,6 +248,7 @@
 #define TEVS_BSL_MODE_FLASH_IDX 			(1U << 0)
 
 #define DEFAULT_HEADER_VERSION 3
+#define TOTAL_MICROSEC_PERSEC               (1000000)
 
 struct header_info {
 	u8 header_version;
@@ -289,6 +290,7 @@ struct tevs {
 	u8 selected_sensor;
 	bool hw_reset_mode;
 	bool trigger_mode;
+	bool fixed_fps;
 	char *sensor_name;
 
 	struct mutex lock; /* Protects formats */
@@ -321,7 +323,7 @@ static struct tegracam_ctrl_ops tevs_nv_ctrl_ops = {
 
 struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
 {
-	struct tegracam_ctrl_handler *ctrl_hdl = 
+	struct tegracam_ctrl_handler *ctrl_hdl =
 			container_of(ctrl->handler, struct tegracam_ctrl_handler, ctrl_handler);
 
 	return (struct tevs*)ctrl_hdl->tc_dev->priv;
@@ -347,14 +349,14 @@ int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
 
 	ret = tevs_i2c_read(tevs, reg, v, 2);
 	if (ret < 0) {
-		dev_err(tevs->dev, 
+		dev_err(tevs->dev,
 			"Failed to read from register: ret=%d, reg=0x%x\n", ret, reg);
 		return ret;
 	}
 
 	*value = (v[0] << 8) | v[1];
-	dev_dbg(tevs->dev, 
-		"%s() read reg 0x%x, value 0x%x\n", 
+	dev_dbg(tevs->dev,
+		"%s() read reg 0x%x, value 0x%x\n",
 		__func__, reg, *value);
 
 	return 0;
@@ -382,12 +384,12 @@ int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
 
 	ret = regmap_bulk_write(tevs->regmap, reg, data, 2);
 	if (ret < 0) {
-		dev_err(tevs->dev, 
+		dev_err(tevs->dev,
 			"Failed to write to register: ret=%d reg=0x%x\n", ret, reg);
 		return ret;
 	}
-	dev_dbg(tevs->dev, 
-		"%s() write reg 0x%x, value 0x%x\n", 
+	dev_dbg(tevs->dev,
+		"%s() write reg 0x%x, value 0x%x\n",
 		__func__, reg, val);
 
 	return 0;
@@ -409,7 +411,7 @@ int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
 				return ret;
 		if((val & 0x300) == 0)
 			break;
-			
+
 	} while(count++ < 10);
 
 	usleep_range(90000, 100000);
@@ -576,7 +578,7 @@ static int tevs_power_on(struct camera_common_data *s_data)
 
 	if((tevs->hw_reset_mode | tevs->trigger_mode)) {
 		ret = tevs_init_setting(tevs);
-		if (ret != 0) 
+		if (ret != 0)
 			dev_err(tevs->dev, "init setting failed\n");
 	}
 
@@ -696,7 +698,7 @@ static int tevs_set_mode(struct tegracam_device *tc_dev)
 	dev_dbg(tc_dev->dev,
 		"%s() , {%d}, fmt_width=%d, fmt_height=%d\n",
 		__func__,
-		s_data->mode, 
+		s_data->mode,
 		tc_dev->s_data->fmt_width,
 		tc_dev->s_data->fmt_height);
 
@@ -720,6 +722,7 @@ static int tevs_set_mode(struct tegracam_device *tc_dev)
 static int tevs_start_streaming(struct tegracam_device *tc_dev)
 {
 	struct tevs *tevs = tc_dev->priv;
+	int exp_time;
 	int ret = 0;
 	dev_dbg(tc_dev->dev, "%s()\n", __func__);
 
@@ -765,6 +768,19 @@ static int tevs_start_streaming(struct tegracam_device *tc_dev)
 		tevs_i2c_write_16b(
 			tevs,
 			HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS, fps);
+
+		if(tevs->fixed_fps) {
+			exp_time = TOTAL_MICROSEC_PERSEC / fps;
+			dev_dbg(tc_dev->dev, "%s():set fixed exp time: %d us(fps:%d)\n", __func__, exp_time, fps);
+			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB,
+						(exp_time >> 16));
+			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB,
+						exp_time & 0xFFFF);
+			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB,
+						(exp_time >> 16));
+			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB,
+						exp_time & 0xFFFF);
+		}
 	}
 
 	return ret;
@@ -1219,7 +1235,7 @@ static int tevs_get_vflip(struct tevs *tevs, s32 *flip)
 }
 
 static const char * const flick_mode_strings[] = {
-	"Disabled", 
+	"Disabled",
 	"50 Hz",
 	"60 Hz",
 	"Auto",
@@ -1241,8 +1257,8 @@ static int tevs_set_flick_mode(struct tevs *tevs, s32 mode)
 		val = TEVS_FLICK_CTRL_MODE_60HZ;
 		break;
 	case 3:
-		val = TEVS_FLICK_CTRL_MODE_AUTO | 
-				TEVS_FLICK_CTRL_FRC_OVERRIDE_UPPER_ET | 
+		val = TEVS_FLICK_CTRL_MODE_AUTO |
+				TEVS_FLICK_CTRL_FRC_OVERRIDE_UPPER_ET |
 				TEVS_FLICK_CTRL_FRC_EN;
 		break;
 	default:
@@ -2187,14 +2203,17 @@ static int tevs_setup(struct tevs *tevs)
 	tevs->hw_reset_mode =
 		of_property_read_bool(tevs->dev->of_node, "hw-reset");
 
-	tevs->trigger_mode = 
+	tevs->trigger_mode =
 		of_property_read_bool(tevs->dev->of_node, "trigger-mode");
 
+	tevs->fixed_fps =
+		of_property_read_bool(tevs->dev->of_node, "fixed-fps");
+
 	dev_dbg(tevs->dev,
-		"data-lanes [%d] ,continuous-clock [%d]," 
-		" hw-reset [%d], trigger-mode [%d]\n",
-		tevs->data_lanes, tevs->continuous_clock, 
-		tevs->hw_reset_mode, tevs->trigger_mode);
+		"data-lanes [%d] ,continuous-clock [%d],"
+		" hw-reset [%d], trigger-mode [%d], fixed-fps [%d]\n",
+		tevs->data_lanes, tevs->continuous_clock,
+		tevs->hw_reset_mode, tevs->trigger_mode, tevs->fixed_fps);
 
 	if (tevs_try_on(tevs) != 0) {
 		dev_err(tevs->dev, "cannot find tevs camera\n");
