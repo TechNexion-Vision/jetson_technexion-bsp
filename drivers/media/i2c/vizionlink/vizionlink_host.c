@@ -40,8 +40,8 @@ static struct __reg8b_v __9096x_i2c_setting [] = {
 	// {.reg = 0x0B, .value = 0x25}, //SCL Low Time
 	{.reg = 0x58, .value = 0x5E}, //BCC_CONFIG
 	{.reg = 0x6D, .value = 0x7C}, //PORT_CONFIG
-	{.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
-	{.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
+	// {.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
+	// {.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
 
 	{.reg = 0x4C, .value = 0x12}, //FPD3_PORT_SEL,Port 1
 	{.reg = 0x72, .value = 0x55}, //CSI_VC_MAP
@@ -50,8 +50,8 @@ static struct __reg8b_v __9096x_i2c_setting [] = {
 	// {.reg = 0x0B, .value = 0x25}, //SCL Low Time
 	{.reg = 0x58, .value = 0x5E}, //BCC_CONFIG
 	{.reg = 0x6D, .value = 0x7C}, //PORT_CONFIG
-	{.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
-	{.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
+	// {.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
+	// {.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
 
 	{.reg = 0x4C, .value = 0x24}, //FPD3_PORT_SEL,Port 2
 	{.reg = 0x72, .value = 0xAA}, //CSI_VC_MAP
@@ -60,8 +60,8 @@ static struct __reg8b_v __9096x_i2c_setting [] = {
 	// {.reg = 0x0B, .value = 0x25}, //SCL Low Time
 	{.reg = 0x58, .value = 0x5E}, //BCC_CONFIG
 	{.reg = 0x6D, .value = 0x7C}, //PORT_CONFIG
-	{.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
-	{.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
+	// {.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
+	// {.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
 
 	{.reg = 0x4C, .value = 0x38}, //FPD3_PORT_SEL,Port 3
 	{.reg = 0x72, .value = 0xFF}, //CSI_VC_MAP
@@ -70,8 +70,8 @@ static struct __reg8b_v __9096x_i2c_setting [] = {
 	// {.reg = 0x0B, .value = 0x25}, //SCL Low Time
 	{.reg = 0x58, .value = 0x5E}, //BCC_CONFIG
 	{.reg = 0x6D, .value = 0x7C}, //PORT_CONFIG
-	{.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
-	{.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
+	// {.reg = 0x7C, .value = 0x38}, //PORT_CONFIG2
+	// {.reg = 0x7D, .value = 0x80}, //PORT_PASS_CTL
 
 	{.reg = 0x15, .value = 0x90}, //GPIO5_PIN_CTL
 	{.reg = 0x17, .value = 0x91}, //GPIO7_PIN_CTL
