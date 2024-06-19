@@ -527,7 +527,7 @@ static int tevs_standby(struct tevs *tevs, int enable)
 					__LINE__, v);
 				return -EINVAL;
 			}
-			usleep_range(9000, 10000);
+			usleep_range(90000, 100000);
 		}
 		dev_dbg(tevs->dev, "sensor standby\n");
 	} else {
@@ -735,6 +735,7 @@ static int tevs_start_streaming(struct tegracam_device *tc_dev)
 {
 	struct tevs *tevs = tc_dev->priv;
 	int exp_time;
+	int fps;
 	int ret = 0;
 	dev_dbg(tc_dev->dev, "%s()\n", __func__);
 
@@ -742,60 +743,59 @@ static int tevs_start_streaming(struct tegracam_device *tc_dev)
 	    tevs_sensor_table[tevs->selected_sensor].res_list_size)
 		return -EINVAL;
 
-	if(!(tevs->hw_reset_mode | tevs->trigger_mode))
-			ret = tevs_standby(tevs, 0);
-	if (ret == 0) {
-		int fps = *tevs_sensor_table[tevs->selected_sensor]
-				  .frmfmt[tevs->selected_mode]
-				  .framerates;
-		dev_dbg(tc_dev->dev, "%s() width=%d, height=%d, mode=%d\n",
-			__func__,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.width,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.height,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.mode);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.mode);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_WIDTH,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.width);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_HEIGHT,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.height);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS, fps);
-		if(tevs->max_fps_ctrl)
-				tevs->max_fps_ctrl->cur.val = fps;
+	fps = *tevs_sensor_table[tevs->selected_sensor]
+			  .frmfmt[tevs->selected_mode]
+			  .framerates;
+	dev_dbg(tc_dev->dev, "%s() width=%d, height=%d, mode=%d\n",
+		__func__,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.width,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.height,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.mode);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.mode);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_WIDTH,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.width);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_HEIGHT,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.height);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS, fps);
+	if(tevs->max_fps_ctrl)
+			tevs->max_fps_ctrl->cur.val = fps;
 
-		if(tevs->fixed_fps) {
-			exp_time = TOTAL_MICROSEC_PERSEC / fps;
-			dev_dbg(tc_dev->dev, "%s():set fixed exp time: %d us(fps:%d)\n", __func__, exp_time, fps);
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB,
-						(exp_time >> 16));
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB,
-						exp_time & 0xFFFF);
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB,
-						(exp_time >> 16));
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB,
-						exp_time & 0xFFFF);
-		}
+	if(tevs->fixed_fps) {
+		exp_time = TOTAL_MICROSEC_PERSEC / fps;
+		dev_dbg(tc_dev->dev, "%s():set fixed exp time: %d us(fps:%d)\n", __func__, exp_time, fps);
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB,
+					(exp_time >> 16));
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB,
+					exp_time & 0xFFFF);
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB,
+					(exp_time >> 16));
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB,
+					exp_time & 0xFFFF);
 	}
+
+	if(!(tevs->hw_reset_mode | tevs->trigger_mode))
+		ret = tevs_standby(tevs, 0);
 
 	return ret;
 }
