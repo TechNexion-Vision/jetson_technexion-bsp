@@ -5,4 +5,4 @@ modules.*
 Module.*
 *.o.*
 *.cmd
-*.mod.*
+*.mod*

@@ -1,3 +1,5 @@
+#include <nvidia/conftest.h>
+
 #include <linux/module.h>
 #include <linux/of.h>
 #include <linux/of_device.h>
@@ -333,7 +335,7 @@ static struct tegracam_ctrl_ops tevs_nv_ctrl_ops = {
 };
 #endif
 
-struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
+static struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
 {
 	struct tegracam_ctrl_handler *ctrl_hdl =
 			container_of(ctrl->handler, struct tegracam_ctrl_handler, ctrl_handler);
@@ -341,7 +343,7 @@ struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
 	return (struct tevs*)ctrl_hdl->tc_dev->priv;
 }
 
-int tevs_i2c_read(struct tevs *tevs, u16 reg, u8 *val, u16 size)
+static int tevs_i2c_read(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 {
 	int ret;
 
@@ -354,7 +356,7 @@ int tevs_i2c_read(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 	return 0;
 }
 
-int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
+static int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
 {
 	u8 v[2] = { 0 };
 	int ret;
@@ -374,7 +376,7 @@ int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
 	return 0;
 }
 
-int tevs_i2c_write(struct tevs *tevs, u16 reg, u8 *val, u16 size)
+static int tevs_i2c_write(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 {
 	int ret;
 
@@ -387,7 +389,7 @@ int tevs_i2c_write(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 	return 0;
 }
 
-int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
+static int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
 {
 	int ret;
 	u8 data[2];
@@ -407,7 +409,7 @@ int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
 	return 0;
 }
 
-int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
+static int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
 {
 	int ret = 0;
 	int count = 0;
@@ -431,7 +433,7 @@ int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
 	return ret;
 }
 
-int tevs_check_version(struct tevs *tevs)
+static int tevs_check_version(struct tevs *tevs)
 {
 	struct device *dev = tevs->dev;
 	u8 version[4] = { 0 };
@@ -451,7 +453,7 @@ int tevs_check_version(struct tevs *tevs)
 	return 0;
 }
 
-int tevs_load_header_info(struct tevs *tevs)
+static int tevs_load_header_info(struct tevs *tevs)
 {
 	struct device *dev = tevs->dev;
 	struct header_info *header = tevs->header_info;
@@ -487,7 +489,7 @@ int tevs_load_header_info(struct tevs *tevs)
 	}
 }
 
-int tevs_init_setting(struct tevs *tevs)
+static int tevs_init_setting(struct tevs *tevs)
 {
 	int ret = 0;
 
@@ -527,7 +529,7 @@ static int tevs_standby(struct tevs *tevs, int enable)
 					__LINE__, v);
 				return -EINVAL;
 			}
-			usleep_range(9000, 10000);
+			usleep_range(90000, 100000);
 		}
 		dev_dbg(tevs->dev, "sensor standby\n");
 	} else {
@@ -575,8 +577,7 @@ static int tevs_check_boot_state(struct tevs *tevs)
 
 static int tevs_power_on(struct camera_common_data *s_data)
 {
-	struct tegracam_device *tc_dev = to_tegracam_device(s_data);
-	struct tevs *tevs = (struct tevs*)tc_dev->priv;
+	struct tevs *tevs = (struct tevs*)s_data->priv;
 	int ret = 0;
 
 	dev_dbg(tevs->dev, "%s()\n", __func__);
@@ -599,8 +600,7 @@ static int tevs_power_on(struct camera_common_data *s_data)
 
 static int tevs_power_off(struct camera_common_data *s_data)
 {
-	struct tegracam_device *tc_dev = to_tegracam_device(s_data);
-	struct tevs *tevs = (struct tevs*)tc_dev->priv;
+	struct tevs *tevs = (struct tevs*)s_data->priv;
 	dev_dbg(tevs->dev, "%s()\n", __func__);
 
 	if(tevs->hw_reset_mode) {
@@ -734,7 +734,7 @@ static int tevs_set_mode(struct tegracam_device *tc_dev)
 static int tevs_start_streaming(struct tegracam_device *tc_dev)
 {
 	struct tevs *tevs = tc_dev->priv;
-	int exp_time;
+	int exp_time, fps;
 	int ret = 0;
 	dev_dbg(tc_dev->dev, "%s()\n", __func__);
 
@@ -742,60 +742,59 @@ static int tevs_start_streaming(struct tegracam_device *tc_dev)
 	    tevs_sensor_table[tevs->selected_sensor].res_list_size)
 		return -EINVAL;
 
+	fps = *tevs_sensor_table[tevs->selected_sensor]
+			  .frmfmt[tevs->selected_mode]
+			  .framerates;
+	dev_dbg(tc_dev->dev, "%s() width=%d, height=%d, mode=%d\n",
+		__func__,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.width,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.height,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.mode);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.mode);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_WIDTH,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.width);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_HEIGHT,
+		tevs_sensor_table[tevs->selected_sensor]
+			.frmfmt[tevs->selected_mode]
+			.size.height);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS, fps);
+	if(tevs->max_fps_ctrl)
+			tevs->max_fps_ctrl->cur.val = fps;
+
+	if(tevs->fixed_fps) {
+		exp_time = TOTAL_MICROSEC_PERSEC / fps;
+		dev_dbg(tc_dev->dev, "%s():set fixed exp time: %d us(fps:%d)\n", __func__, exp_time, fps);
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB,
+					(exp_time >> 16));
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB,
+					exp_time & 0xFFFF);
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB,
+					(exp_time >> 16));
+		tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB,
+					exp_time & 0xFFFF);
+	}
+
 	if(!(tevs->hw_reset_mode | tevs->trigger_mode))
 			ret = tevs_standby(tevs, 0);
-	if (ret == 0) {
-		int fps = *tevs_sensor_table[tevs->selected_sensor]
-				  .frmfmt[tevs->selected_mode]
-				  .framerates;
-		dev_dbg(tc_dev->dev, "%s() width=%d, height=%d, mode=%d\n",
-			__func__,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.width,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.height,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.mode);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.mode);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_WIDTH,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.width);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_HEIGHT,
-			tevs_sensor_table[tevs->selected_sensor]
-				.frmfmt[tevs->selected_mode]
-				.size.height);
-		tevs_i2c_write_16b(
-			tevs,
-			HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS, fps);
-		if(tevs->max_fps_ctrl)
-				tevs->max_fps_ctrl->cur.val = fps;
-
-		if(tevs->fixed_fps) {
-			exp_time = TOTAL_MICROSEC_PERSEC / fps;
-			dev_dbg(tc_dev->dev, "%s():set fixed exp time: %d us(fps:%d)\n", __func__, exp_time, fps);
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_MSB,
-						(exp_time >> 16));
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_UPPER_LSB,
-						exp_time & 0xFFFF);
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_MSB,
-						(exp_time >> 16));
-			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_PREVIEW_EXP_TIME_MAX_LSB,
-						exp_time & 0xFFFF);
-		}
-	}
 
 	return ret;
 }
@@ -2463,9 +2462,12 @@ static int tevs_setup(struct tevs *tevs)
 
 	return ret;
 }
-
+#if defined(NV_I2C_DRIVER_STRUCT_PROBE_WITHOUT_I2C_DEVICE_ID_ARG) /* Linux 6.3 */
+static int tevs_probe(struct i2c_client *client)
+#else
 static int tevs_probe(struct i2c_client *client,
 			const struct i2c_device_id *id)
+#endif
 {
 	struct tevs *tevs = NULL;
 	struct device *dev = &client->dev;
@@ -2545,15 +2547,20 @@ error_probe:
 
 	return ret;
 }
-
+#if defined(NV_I2C_DRIVER_STRUCT_REMOVE_RETURN_TYPE_INT) /* Linux 6.1 */
 static int tevs_remove(struct i2c_client *client)
+#else
+static void tevs_remove(struct i2c_client *client)
+#endif
 {
 	struct camera_common_data *s_data = to_camera_common_data(&client->dev);
 	struct tevs *tevs = (struct tevs *)s_data->priv;
 
 	tegracam_v4l2subdev_unregister(tevs->tc_dev);
 	tegracam_device_unregister(tevs->tc_dev);
+#if defined(NV_I2C_DRIVER_STRUCT_REMOVE_RETURN_TYPE_INT) /* Linux 6.1 */
 	return 0;
+#endif
 }
 
 static const struct i2c_device_id sensor_id[] = { { DRIVER_NAME, 0 }, {} };
