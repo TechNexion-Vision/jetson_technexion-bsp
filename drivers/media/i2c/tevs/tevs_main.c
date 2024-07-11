@@ -575,8 +575,7 @@ static int tevs_check_boot_state(struct tevs *tevs)
 
 static int tevs_power_on(struct camera_common_data *s_data)
 {
-	struct tegracam_device *tc_dev = to_tegracam_device(s_data);
-	struct tevs *tevs = (struct tevs*)tc_dev->priv;
+	struct tevs *tevs = (struct tevs*)s_data->priv;
 	int ret = 0;
 
 	dev_dbg(tevs->dev, "%s()\n", __func__);
@@ -599,8 +598,7 @@ static int tevs_power_on(struct camera_common_data *s_data)
 
 static int tevs_power_off(struct camera_common_data *s_data)
 {
-	struct tegracam_device *tc_dev = to_tegracam_device(s_data);
-	struct tevs *tevs = (struct tevs*)tc_dev->priv;
+	struct tevs *tevs = (struct tevs*)s_data->priv;
 	dev_dbg(tevs->dev, "%s()\n", __func__);
 
 	if(tevs->hw_reset_mode) {
