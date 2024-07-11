@@ -13,7 +13,6 @@
 ## Support JetPack Version
 
 - [JetPack 5.1.1](https://developer.nvidia.com/embedded/jetpack-sdk-511) [[L4T 35.3.1]](https://developer.nvidia.com/embedded/jetson-linux-r3531)
-- [JetPack 5.1.2](https://developer.nvidia.com/embedded/jetpack-sdk-512) [[L4T 35.4.1]](https://developer.nvidia.com/embedded/jetson-linux-r3541)
 
 ## Support Camera Modules
 
@@ -27,8 +26,8 @@
 [More Camera Products Details...](https://www.technexion.com/products/embedded-vision)
 ## Supported NVIDIA Jetson Developer Kit
 
-- [Nvidia Jetson Orin NANO](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit)
-- [Nvidia Jetson Xavier NX ](https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit) (reached EOL)
+- [NVIDIA Jetson Orin NANO](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit)
+- [NVIDIA Jetson Xavier NX ](https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit) (reached EOL)
 
 ## Supported TechNexion TEK Series
 
@@ -38,11 +37,11 @@
 ---
 ## Install TN Camera on Jetson Developer Kit
 
-### Adaptor for Nvidia **Jetson ORIN NANO Development Kit**
+### Adaptor for NVIDIA **Jetson ORIN NANO Development Kit**
 
 **TEV-RPI22 Adaptor for TEVS**
 
-> Connect TEVS camera and TEV-RPI22 adaptor to **Jetson Orin Nano Developer Kit** directly. 
+> Connect TEVS camera and TEV-RPI22 adaptor to **Jetson Orin Nano Developer Kit** directly.
 
 <a href="https://www.technexion.com/products/embedded-vision/mipi-csi2/evk/tevs-ar0144-c-s33-ir-rpi22/" target="_blank">
  <img src="https://www.technexion.com/wp-content/uploads/2023/11/tevs-ar0144-c-s33-ir-rpi22.png" width="400" height="400" />
@@ -101,7 +100,7 @@ cd tn_camera_modules/
 ```shell
 $ sh tn_install.sh
 ****** TechNexion Camera Driver Installation ******
-This installation is easy to install TechnNexion Camera Drivers for Nvidia
+This installation is easy to install TechnNexion Camera Drivers for NVIDIA
 Jetson Orin NANO Development Kits. Before start to install camera driver,
 You should BACKUP your image to avoid any file you lost while installing process.
 Do you want to continue?[Y/n]Y
@@ -125,7 +124,7 @@ Select modules:
     [4]: TEVI-OV5640: TEVI-OV5640 Cameras with TEV-RPI22 Adaptor
 Which modules do you select?[default:1]
 ```
-   
+
 Note: You should reboot the device after installation.
 
 ---
@@ -212,6 +211,6 @@ nvvidconv ! nv3dsink sync=false
 ---
 ## WIKI Pages
 
-[TechNexion cameras with Nvidia EVK guide](https://developer.technexion.com/docs/tevi-arxxxx-cameras-on-nvidia-jetson-nano)
+[TechNexion cameras with NVIDIA EVK guide](https://developer.technexion.com/docs/tevi-arxxxx-cameras-on-nvidia-jetson-nano)
 
-[TechNexion Nvidia products guide](https://developer.technexion.com/docs/1)
+[TechNexion NVIDIA products guide](https://developer.technexion.com/docs/1)
