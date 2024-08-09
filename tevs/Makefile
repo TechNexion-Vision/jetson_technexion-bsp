@@ -1,3 +1,4 @@
 ifdef CONFIG_MEDIA_SUPPORT
-obj-m += tn_tevs.o
+tevs-objs := tevs_main.o
+obj-m += tevs.o
 endif
