@@ -2167,6 +2167,7 @@ static int tevs_ctrls_init(struct tevs *tevs)
 		case V4L2_CID_EXPOSURE:
 			tevs_get_exposure_max(tevs, &ctrl->maximum);
 			tevs_get_exposure_min(tevs, &ctrl->minimum);
+			tevs->exp_time_ctrl = ctrl;
 			break;
 
 		case V4L2_CID_GAIN:
