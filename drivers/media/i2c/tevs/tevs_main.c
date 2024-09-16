@@ -757,6 +757,14 @@ static int tevs_start_streaming(struct tegracam_device *tc_dev)
 			.mode);
 	tevs_i2c_write_16b(
 		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_FORMAT,
+		0x50);
+	tevs_i2c_write_16b(
+		tevs,
+		HOST_COMMAND_ISP_CTRL_PREVIEW_HINF_CTRL,
+		0x10 | (tevs->continuous_clock << 5) | (tevs->data_lanes));
+	tevs_i2c_write_16b(
+		tevs,
 		HOST_COMMAND_ISP_CTRL_PREVIEW_SENSOR_MODE,
 		tevs_sensor_table[tevs->selected_sensor]
 			.frmfmt[tevs->selected_mode]
@@ -773,6 +781,12 @@ static int tevs_start_streaming(struct tegracam_device *tc_dev)
 		tevs_sensor_table[tevs->selected_sensor]
 			.frmfmt[tevs->selected_mode]
 			.size.height);
+	tevs_i2c_write_16b(
+		tevs, HOST_COMMAND_ISP_CTRL_EXP_TIME_MSB,
+		tevs->exp_time_ctrl->cur.val >> 16);
+	tevs_i2c_write_16b(
+		tevs, HOST_COMMAND_ISP_CTRL_EXP_TIME_LSB,
+		tevs->exp_time_ctrl->cur.val & 0xFFFF);
 	tevs_i2c_write_16b(
 		tevs,
 		HOST_COMMAND_ISP_CTRL_PREVIEW_MAX_FPS, fps);
@@ -1601,6 +1615,23 @@ static int tevs_set_bsl_mode(struct tevs *tevs, s32 mode)
 	case TEVS_BSL_MODE_NORMAL_IDX:
 		tevs_i2c_write(tevs, 0x8001, startup, 6);
 		tevs_i2c_read(tevs, 0x8001, &val, 1);
+
+		msleep(TEVS_BOOT_TIME);
+
+		if(tevs_check_boot_state(tevs) != 0) {
+			dev_err(tevs->dev, "check tevs bootup status failed\n");
+			return -EINVAL;
+		}
+
+		if(tevs->data_frequency != 0) {
+			tevs_i2c_write_16b(tevs, HOST_COMMAND_ISP_CTRL_MIPI_FREQ,
+						tevs->data_frequency);
+			msleep(TEVS_BOOT_TIME);
+			if(tevs_check_boot_state(tevs) != 0) {
+				dev_err(tevs->dev, "check tevs bootup status failed\n");
+				return -EINVAL;
+			}
+		}
 		break;
 	case TEVS_BSL_MODE_FLASH_IDX:
 		gpiod_set_value_cansleep(tevs->reset_gpio, 0);
@@ -2296,12 +2327,15 @@ static int tevs_setup(struct tevs *tevs)
 		}
 	}
 
-	tevs->data_frequency = 800;
+	tevs->data_frequency = 0;
 	if (of_property_read_u32(tevs->dev->of_node, "data-frequency",
 				 &tevs->data_frequency) == 0) {
-		if ((tevs->data_frequency < 100) || (tevs->data_frequency > 1200)) {
+		if ((tevs->data_frequency != 0) &&
+		    ((tevs->data_frequency < 100) ||
+		     (tevs->data_frequency > 1200))) {
 			dev_err(tevs->dev,
-				"value of 'data-frequency = <%d>' property is invaild\n", tevs->data_frequency);
+				"value of 'data-frequency = <%d>' property is invaild\n",
+				tevs->data_frequency);
 			return -EINVAL;
 		}
 	}
