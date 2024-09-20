@@ -336,7 +336,7 @@ static struct tegracam_ctrl_ops tevs_nv_ctrl_ops = {
 };
 #endif
 
-struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
+static struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
 {
 	struct tegracam_ctrl_handler *ctrl_hdl =
 			container_of(ctrl->handler, struct tegracam_ctrl_handler, ctrl_handler);
@@ -344,7 +344,7 @@ struct tevs* _to_tevs_priv(struct v4l2_ctrl *ctrl)
 	return (struct tevs*)ctrl_hdl->tc_dev->priv;
 }
 
-int tevs_i2c_read(struct tevs *tevs, u16 reg, u8 *val, u16 size)
+static int tevs_i2c_read(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 {
 	int ret;
 
@@ -357,7 +357,7 @@ int tevs_i2c_read(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 	return 0;
 }
 
-int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
+static int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
 {
 	u8 v[2] = { 0 };
 	int ret;
@@ -377,7 +377,7 @@ int tevs_i2c_read_16b(struct tevs *tevs, u16 reg, u16 *value)
 	return 0;
 }
 
-int tevs_i2c_write(struct tevs *tevs, u16 reg, u8 *val, u16 size)
+static int tevs_i2c_write(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 {
 	int ret;
 
@@ -390,7 +390,7 @@ int tevs_i2c_write(struct tevs *tevs, u16 reg, u8 *val, u16 size)
 	return 0;
 }
 
-int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
+static int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
 {
 	int ret;
 	u8 data[2];
@@ -410,7 +410,7 @@ int tevs_i2c_write_16b(struct tevs *tevs, u16 reg, u16 val)
 	return 0;
 }
 
-int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
+static int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
 {
 	int ret = 0;
 	int count = 0;
@@ -434,7 +434,7 @@ int tevs_enable_trigger_mode(struct tevs *tevs, int enable)
 	return ret;
 }
 
-int tevs_check_version(struct tevs *tevs)
+static int tevs_check_version(struct tevs *tevs)
 {
 	struct device *dev = tevs->dev;
 	u8 version[4] = { 0 };
@@ -454,7 +454,7 @@ int tevs_check_version(struct tevs *tevs)
 	return 0;
 }
 
-int tevs_load_header_info(struct tevs *tevs)
+static int tevs_load_header_info(struct tevs *tevs)
 {
 	struct device *dev = tevs->dev;
 	struct header_info *header = tevs->header_info;
@@ -490,7 +490,7 @@ int tevs_load_header_info(struct tevs *tevs)
 	}
 }
 
-int tevs_init_setting(struct tevs *tevs)
+static int tevs_init_setting(struct tevs *tevs)
 {
 	int ret = 0;
 
