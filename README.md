@@ -129,7 +129,10 @@ Note: You should reboot the device after installation.
 
 ---
 
-#### Method 3 - Build drivers from source code
+#### Method 3 - Build drivers from source codes
+
+> You can find the device tree sources from our GitHub:
+[Device Tree for Jetson Orin Nano DevKit](https://github.com/TechNexion-Vision/TEV-JetsonOrin-Nano_device-tree/tree/tn_l4t-r35.3.ga_kernel-5.10)
 
 1. Follow [TN BSP install steps](https://github.com/TechNexion-Vision/nvidia_jetson_tn_bsp)
 
