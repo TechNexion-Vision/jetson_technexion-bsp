@@ -2356,18 +2356,19 @@ static int tevs_setup(struct tevs *tevs)
 		dev_err(tevs->dev, "cannot find tevs camera\n");
 		return -EINVAL;
 	}
-
-	ret = tevs_i2c_write_16b(tevs,
-				HOST_COMMAND_ISP_CTRL_MIPI_FREQ,
-				tevs->data_frequency);
-	msleep(TEVS_BOOT_TIME);
-	if (tevs_check_boot_state(tevs) != 0) {
-		dev_err(tevs->dev, "check tevs bootup status failed\n");
-		return -EINVAL;
-	}
-	if (ret < 0) {
-		dev_err(tevs->dev, "set mipi frequency failed\n");
-		return -EINVAL;
+	if (tevs->data_frequency != 0) {
+		ret = tevs_i2c_write_16b(tevs,
+					HOST_COMMAND_ISP_CTRL_MIPI_FREQ,
+					tevs->data_frequency);
+		msleep(TEVS_BOOT_TIME);
+		if (tevs_check_boot_state(tevs) != 0) {
+			dev_err(tevs->dev, "check tevs bootup status failed\n");
+			return -EINVAL;
+		}
+		if (ret < 0) {
+			dev_err(tevs->dev, "set mipi frequency failed\n");
+			return -EINVAL;
+		}
 	}
 
 	tevs->header_info = devm_kzalloc(
