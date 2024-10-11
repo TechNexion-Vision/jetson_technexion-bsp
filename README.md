@@ -105,9 +105,7 @@ Note: You should reboot the device after installation.
 
 #### Method 2 - Build drivers from source codes
 
-1. Follow [TN BSP install steps](https://github.com/TechNexion-Vision/nvidia_jetson_tn_bsp)
-
-2. After downloading, you can build kernel image and modules manually by following [compile steps](https://developer.technexion.com/docs/compile-step).
+Please follow the [guide](https://developer.technexion.com/docs/how-to-build-technexion-camera-drivers-for-nvidia-jetpack6x) to build camera driver modules.
 
 ---
 
