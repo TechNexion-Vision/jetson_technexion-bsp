@@ -1,4 +1,4 @@
-[![Technexion](https://github.com/TechNexion-Vision/TEV-Jetson_Camera_driver/assets/28101204/08cd2fa9-7333-4a16-819f-c69a3dbf290c)](https://www.technexion.com/products/embedded-vision/)
+[![Technexion](https://github.com/user-attachments/assets/d20ae328-b4ff-4152-b4dd-6753674d0fe8)](https://www.technexion.com/products/embedded-vision/)
 
 [![Producer: Technexion](https://img.shields.io/badge/Producer-Technexion-blue.svg)](https://www.technexion.com)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
@@ -81,22 +81,22 @@ After that, you can follow the below method to install TechNexion Cameras Driver
 
 1. Download pre-built modules.
 
-JetPack 5.1.1
+**JetPack 5.1.1**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP511/tn_camera_modules_jp511.tar.gz
 ```
 
-JetPack 5.1.2
+**JetPack 5.1.2**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP512/tn_camera_modules_jp512.tar.gz
 ```
 
-JetPack 5.1.3
+**JetPack 5.1.3**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP513/tn_camera_modules_jp513.tar.gz
 ```
 
-JetPack 5.1.4
+**JetPack 5.1.4**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP514/tn_camera_modules_jp514.tar.gz
 ```
@@ -117,7 +117,7 @@ cd tn_camera_modules/
 4. After you agree to continue the installation, select the pre-installed modules that you want. The default module is TEVS cameras.
 
 ```shell
-$ sh tn_install.sh
+$ ./tn_install.sh
 ****** TechNexion Camera Driver Installation ******
 This installation is easy to install TechnNexion Camera Drivers for NVIDIA
 Jetson Orin NANO Development Kits. Before start to install camera driver,
