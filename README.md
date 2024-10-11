@@ -134,9 +134,7 @@ Note: You should reboot the device after installation.
 > You can find the device tree sources from our GitHub:
 [Device Tree for Jetson Orin Nano DevKit](https://github.com/TechNexion-Vision/TEV-JetsonOrin-Nano_device-tree/tree/tn_l4t-r35.3.ga_kernel-5.10)
 
-1. Follow [TN BSP install steps](https://github.com/TechNexion-Vision/nvidia_jetson_tn_bsp)
-
-2. After downloading, you can build kernel image and modules manually by following [compile steps](https://developer.technexion.com/docs/compile-step).
+Please follow the [guide](https://developer.technexion.com/docs/how-to-build-technexion-camera-drivers-for-nvidia-jetpack5) to build camera driver modules.
 
 ---
 
