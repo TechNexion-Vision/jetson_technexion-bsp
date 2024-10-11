@@ -13,6 +13,9 @@
 ## Support JetPack Version
 
 - [JetPack 5.1.1](https://developer.nvidia.com/embedded/jetpack-sdk-511) [[L4T 35.3.1]](https://developer.nvidia.com/embedded/jetson-linux-r3531)
+- [JetPack 5.1.2](https://developer.nvidia.com/embedded/jetpack-sdk-512) [[L4T 35.4.1]](https://developer.nvidia.com/embedded/jetson-linux-r3541)
+- [JetPack 5.1.3](https://developer.nvidia.com/embedded/jetpack-sdk-513) [[L4T 35.5.0]](https://developer.nvidia.com/embedded/jetson-linux-r3550)
+- [JetPack 5.1.4](https://developer.nvidia.com/embedded/jetpack-sdk-514) [[L4T 35.6.0]](https://developer.nvidia.com/embedded/jetson-linux-r3560)
 
 ## Support Camera Modules
 
@@ -78,8 +81,24 @@ After that, you can follow the below method to install TechNexion Cameras Driver
 
 1. Download pre-built modules.
 
+JetPack 5.1.1
 ```
-wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/tn_camera_modules.tar.gz
+wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP511/tn_camera_modules_jp511.tar.gz
+```
+
+JetPack 5.1.2
+```
+wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP512/tn_camera_modules_jp512.tar.gz
+```
+
+JetPack 5.1.3
+```
+wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP513/tn_camera_modules_jp513.tar.gz
+```
+
+JetPack 5.1.4
+```
+wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP514/tn_camera_modules_jp514.tar.gz
 ```
 
 2. uncompress the modules.
