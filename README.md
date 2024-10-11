@@ -1,4 +1,4 @@
-[![Technexion](https://github.com/TechNexion-Vision/TEV-Jetson_Camera_driver/assets/28101204/08cd2fa9-7333-4a16-819f-c69a3dbf290c)](https://www.technexion.com/products/embedded-vision/)
+[![Technexion](https://github.com/user-attachments/assets/d20ae328-b4ff-4152-b4dd-6753674d0fe8)](https://www.technexion.com/products/embedded-vision/)
 
 [![Producer: Technexion](https://img.shields.io/badge/Producer-Technexion-blue.svg)](https://www.technexion.com)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
@@ -7,12 +7,11 @@
 
 [TechNexion Embedded Vision Solutions](https://www.technexion.com/products/embedded-vision/) provide embedded system developers access to high-performance, industrial-grade camera solutions to accelerate their time to market for embedded vision projects.
 
-### Version 0.0.1 (Beta)
 ---
 
 ## Support JetPack Version
 
-- [JetPack 6.0](https://developer.nvidia.com/embedded/jetpack-sdk-60) [[L4T 36.3]](https://developer.nvidia.com/embedded/jetson-linux-r363)
+- [JetPack 6.1](https://developer.nvidia.com/embedded/jetpack-sdk-61) [[L4T 36.4]](https://developer.nvidia.com/embedded/jetson-linux-r3640)
 
 ## Support Camera Modules
 
@@ -26,12 +25,6 @@
 ## Supported NVIDIA Jetson Developer Kit
 
 - [NVIDIA Jetson Orin NANO](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit)
-- [NVIDIA Jetson Xavier NX ](https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit) (reached EOL)
-
-## Supported TechNexion TEK Series
-
-- [TEK6040-ORIN-NANO](https://www.technexion.com/products/embedded-computing/aivision/tek6040-orin-nano/)
-- [TEK8021-NX-V](https://www.technexion.com/product/tek8021-nx-v/)
 
 ---
 ## Install TN Camera on Jetson Developer Kit
@@ -56,35 +49,25 @@
 
 ---
 
-
-
-#### Method 1 - Using Technexion Pre-built Image
-
-We provide pre-built images to install quickly on Jetson Orin Nano Developer Kit.
-
-[TEV-RPI22 + TEVS Cameras](https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/TEV-RPI22_Camera_Series/DiskImage/TEV-RPI22-TEVS_ubuntu-20.04_dp_SD_diskimg.zip)
-
-[VLS3-ORIN-EVK + VLS3 Cameras](https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/VLS3-ORIN-EVK/DiskImage/VLS3-ORIN-EVK-VLS3_ubuntu-20.04_dp_SD_diskimg.zip)
-
 ---
 
-#### Method 2 - Using Technexion Pre-built modules
+#### Method 1 - Using Technexion Pre-built modules
 
 ##### Preparation
 
 We recommend following the [Getting Started Guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit) for Jetson Orin Nano Developer Kit.
 After that, you can follow the below method to install TechNexion Cameras Driver.
 
-1. Download pre-built modules.
+1. Download pre-built modules for JetPack6.1.
 
 ```
-wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/tn_camera_modules.tar.gz
+wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP61/tn_camera_modules_jp61.tar.gz
 ```
 
 2. uncompress the modules.
 
 ```shell
-tar -xf tn_camera_modules.tar.gz
+tar -xf tn_camera_modules_jp61.tar.gz
 ```
 
 3. Run installation script.
@@ -97,30 +80,22 @@ cd tn_camera_modules/
 4. After you agree to continue the installation, select the pre-installed modules that you want. The default module is TEVS cameras.
 
 ```shell
-$ sh tn_install.sh
+$ ./tn_install.sh
 ****** TechNexion Camera Driver Installation ******
-This installation is easy to install TechnNexion Camera Drivers for NVIDIA
+This installation is easy to install TechnNexion Camera Drivers for Nvidia
 Jetson Orin NANO Development Kits. Before start to install camera driver,
 You should BACKUP your image to avoid any file you lost while installing process.
 Do you want to continue?[Y/n]Y
 Continuing with the installation...
-Install TN-CAM modules: vizionlink.ko
+Install TN-CAM modules: vls3.ko
 Install TN-CAM modules: tevs.ko
-Install TN-CAM modules: tevi_ap1302.ko
-Install TN-CAM modules: tevi_ov5640.ko
-Install TN-CAM DTB file: tevs
+Install TN-CAM DTBO file: tevs-dual
 Installed TN-CAM DTB file Done.
-Install TN-CAM DTB file: vl316-vls
-Installed TN-CAM DTB file Done.
-Install TN-CAM DTB file: tevi-ap1302
-Installed TN-CAM DTB file Done.
-Install TN-CAM DTB file: tevi-ov5640
+Install TN-CAM DTBO file: vls3
 Installed TN-CAM DTB file Done.
 Select modules:
-    [1]: TEVS: TEVS Series MIPI Cameras with RPI22 Adaptor
+    [1]: TEVS: TEVS Series MIPI Cameras with TEV-RPI22 Adaptor
     [2]: VLS3: VLS3 Series Cameras with VLS3-ORIN-EVK Adaptor
-    [3]: TEVI-AP1302: TEVI-AR Series Cameras with TEV-RPI22 Adaptor
-    [4]: TEVI-OV5640: TEVI-OV5640 Cameras with TEV-RPI22 Adaptor
 Which modules do you select?[default:1]
 ```
 
@@ -128,7 +103,7 @@ Note: You should reboot the device after installation.
 
 ---
 
-#### Method 3 - Build drivers from source code
+#### Method 2 - Build drivers from source codes
 
 1. Follow [TN BSP install steps](https://github.com/TechNexion-Vision/nvidia_jetson_tn_bsp)
 
@@ -146,40 +121,50 @@ If you succeed in initialing the camera, you can follow the steps to open the ca
 $ gst-device-monitor-1.0 Video/Source
 Device found:
 
-        name  : vi-output, tevs 9-0048
+        name  : vi-output, tevs 10-0048
         class : Video/Source
-        caps  : video/x-raw, format=(string)UYVY, width=(int)1280, height=(int)800, framerate=(fraction)60/1;
-                video/x-raw, format=(string)UYVY, width=(int)1280, height=(int)720, framerate=(fraction)60/1;
-                video/x-raw, format=(string)UYVY, width=(int)640, height=(int)480, framerate=(fraction)60/1;
-                video/x-raw, format=(string)UYVY, width=(int)1280, height=(int)800, framerate=(fraction)60/1;
-                video/x-raw, format=(string)UYVY, width=(int)1280, height=(int)720, framerate=(fraction)60/1;
-                video/x-raw, format=(string)UYVY, width=(int)640, height=(int)480, framerate=(fraction)60/1;
-                video/x-raw, format=(string)NV16, width=(int)1280, height=(int)800, framerate=(fraction)60/1;
-                video/x-raw, format=(string)NV16, width=(int)1280, height=(int)720, framerate=(fraction)60/1;
-                video/x-raw, format=(string)NV16, width=(int)640, height=(int)480, framerate=(fraction)60/1;
+        caps  : video/x-raw, format=UYVY, width=640, height=480, framerate=120/1
+                video/x-raw, format=UYVY, width=1280, height=720, framerate=120/1
+                video/x-raw, format=UYVY, width=1920, height=1080, framerate=60/1
+                video/x-raw, format=UYVY, width=1920, height=1200, framerate=60/1
+                video/x-raw, format=NV16, width=640, height=480, framerate=120/1
+                video/x-raw, format=NV16, width=1280, height=720, framerate=120/1
+                video/x-raw, format=NV16, width=1920, height=1080, framerate=60/1
+                video/x-raw, format=NV16, width=1920, height=1200, framerate=60/1
+                video/x-raw, format=UYVY, width=640, height=480, framerate=120/1
+                video/x-raw, format=UYVY, width=1280, height=720, framerate=120/1
+                video/x-raw, format=UYVY, width=1920, height=1080, framerate=60/1
+                video/x-raw, format=UYVY, width=1920, height=1200, framerate=60/1
         properties:
-                udev-probed = true
-                device.bus_path = platform-tegra-capture-vi
-                sysfs.path = /sys/devices/platform/tegra-capture-vi/video4linux/video0
-                device.subsystem = video4linux
-                device.product.name = "vi-output\,\ tevs\ 9-003e"
-                device.capabilities = :capture:
+                object.path = v4l2:/dev/video0
                 device.api = v4l2
-                device.path = /dev/video0
-                v4l2.device.driver = tegra-video
-                v4l2.device.card = "vi-output\,\ tevs\ 9-003e"
-                v4l2.device.bus_info = platform:tegra-capture-vi:1
-                v4l2.device.version = 330344 (0x00050a68)
-                v4l2.device.capabilities = 2216689665 (0x84200001)
-                v4l2.device.device_caps = 69206017 (0x04200001)
-        gst-launch-1.0 v4l2src ! ...
+                media.class = Video/Source
+                api.v4l2.path = /dev/video0
+                api.v4l2.cap.driver = tegra-video
+                api.v4l2.cap.card = "vi-output\,\ tevs\ 10-0048"
+                api.v4l2.cap.bus_info = platform:tegra-capture-vi:1
+                api.v4l2.cap.version = 5.15.148
+                api.v4l2.cap.capabilities = 84200001
+                api.v4l2.cap.device-caps = 04200001
+                device.id = 33
+                node.name = v4l2_input.platform-tegra-capture-vi
+                node.description = "vi-output\,\ tevs\ 10-0048"
+                factory.name = api.v4l2.source
+                node.pause-on-idle = false
+                factory.id = 10
+                client.id = 32
+                clock.quantum-limit = 8192
+                media.role = Camera
+                node.driver = true
+                object.id = 34
+                object.serial = 34
+        gst-launch-1.0 pipewiresrc path=34 ! ...
 ```
 2. Bring up the camera (/dev/video0) with 1280x720 by Gstreamer pipeline:
 
 ```shell
 DISPLAY=:0 gst-launch-1.0 v4l2src device=/dev/video0 ! \
-"video/x-raw, format=(string)UYVY, width=(int)1280, height=(int)720" ! \
-nvvidconv ! nv3dsink sync=false
+"video/x-raw, format=UYVY, width=1280, height=720" ! xvimagesink sync=false
 ```
 
 ### Troubleshooting
