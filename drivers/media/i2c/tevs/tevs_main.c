@@ -2413,6 +2413,10 @@ static int tevs_setup(struct tevs *tevs)
 		tevs->s_data->frmfmt = ar0144_frmfmt;
 		tevs->s_data->numfmts = ARRAY_SIZE(ar0144_frmfmt);
 		break;
+	case TEVS_AR0145:
+		tevs->s_data->frmfmt = ar0145_frmfmt;
+		tevs->s_data->numfmts = ARRAY_SIZE(ar0145_frmfmt);
+		break;
 	case TEVS_AR0234:
 		tevs->s_data->frmfmt = ar0234_frmfmt;
 		tevs->s_data->numfmts = ARRAY_SIZE(ar0234_frmfmt);

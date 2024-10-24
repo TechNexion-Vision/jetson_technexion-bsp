@@ -26,6 +26,12 @@ static struct resolution ar0144_res_list[] = {
 	{ .width = 1280, .height = 800, .framerates = 60, .mode = 0 },
 };
 
+static struct resolution ar0145_res_list[] = {
+	{ .width = 640, .height = 480, .framerates = 115, .mode = 0 },
+	{ .width = 1280, .height = 720, .framerates = 115, .mode = 0 },
+	{ .width = 1280, .height = 800, .framerates = 115, .mode = 0 },
+};
+
 static struct resolution ar0234_res_list[] = {
 	{ .width = 640, .height = 480, .framerates = 120, .mode = 1 },
 	{ .width = 1280, .height = 720, .framerates = 120, .mode = 0 },
@@ -89,6 +95,11 @@ static struct sensor_info tevs_sensor_table[] = {
 		.res_list_size = ARRAY_SIZE(ar0144_res_list)
 	},
 	{
+		.sensor_name = "TEVS-AR0145",
+		.res_list = ar0144_res_list,
+		.res_list_size = ARRAY_SIZE(ar0145_res_list)
+	},
+	{
 		.sensor_name = "TEVS-AR0234",
 		.res_list = ar0234_res_list,
 		.res_list_size = ARRAY_SIZE(ar0234_res_list)
@@ -127,6 +138,7 @@ static const int __24fps = 24;
 static const int __30fps = 30;
 static const int __32fps = 32;
 static const int __60fps = 60;
+static const int __115fps = 115;
 static const int __120fps = 120;
 
 static const struct camera_common_frmfmt sensor_frmfmt[] = {
@@ -139,6 +151,11 @@ static const struct camera_common_frmfmt ar0144_frmfmt[] = {
 	{{640, 480}, &__60fps, 1, 0, 0},
 	{{1280, 720}, &__60fps, 1, 0, 0},
 	{{1280, 800}, &__60fps, 1, 0, 0},
+};
+static const struct camera_common_frmfmt ar0145_frmfmt[] = {
+	{{640, 480}, &__115fps, 1, 0, 0},
+	{{1280, 720}, &__115fps, 1, 0, 0},
+	{{1280, 800}, &__115fps, 1, 0, 0},
 };
 static const struct camera_common_frmfmt ar0234_frmfmt[] = {
 	{{640, 480}, &__120fps, 1, 0, 1},
@@ -197,6 +214,11 @@ static struct sensor_info tevs_sensor_table[] = {
 		.sensor_name = "TEVS-AR0144",
 		.frmfmt = ar0144_frmfmt,
 		.res_list_size = ARRAY_SIZE(ar0144_frmfmt)
+	},
+	{
+		.sensor_name = "TEVS-AR0145",
+		.frmfmt = ar0145_frmfmt,
+		.res_list_size = ARRAY_SIZE(ar0145_frmfmt)
 	},
 	{
 		.sensor_name = "TEVS-AR0234",
