@@ -18,7 +18,7 @@
 | **Camera Series** | **Products** |
 | --- | --- |
 | TEVS | TEVS-AR0144-C<br>TEVS-AR0145-M<br>TEVS-AR0234-C<br>TEVS-AR0521-C<br>TEVS-AR0522-C<br>TEVS-AR0522-M<br>TEVS-AR0821-C<br>TEVS-AR0822-C<br>TEVS-AR1335-C |
-| VLS3 | VLS3-AR0144-C<br>VLS3-AR0234-C<br>VLS3-AR0521-C<br>VLS3-AR0522-C<br>VLS3-AR0522-M<br>VLS3-AR0821-C<br>VLS3-AR0822-C<br>VLS3-AR1335-C|
+| VLS3 | VLS3-AR0144-C<br>VLS3-AR0145-M<br>VLS3-AR0234-C<br>VLS3-AR0521-C<br>VLS3-AR0522-C<br>VLS3-AR0522-M<br>VLS3-AR0821-C<br>VLS3-AR0822-C<br>VLS3-AR1335-C|
 
 
 [More Camera Products Details...](https://www.technexion.com/products/embedded-vision)
