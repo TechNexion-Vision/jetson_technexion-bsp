@@ -81,22 +81,22 @@ After that, you can follow the below method to install TechNexion Cameras Driver
 
 1. Download pre-built modules.
 
-**JetPack 5.1.1**
+**JetPack 5.1.1(R35.3.1)**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP511/tn_camera_modules_jp511.tar.gz
 ```
 
-**JetPack 5.1.2**
+**JetPack 5.1.2(R35.4.1)**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP512/tn_camera_modules_jp512.tar.gz
 ```
 
-**JetPack 5.1.3**
+**JetPack 5.1.3(R35.5)**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP513/tn_camera_modules_jp513.tar.gz
 ```
 
-**JetPack 5.1.4**
+**JetPack 5.1.4(R35.6)**
 ```
 wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built-modules/latest/JP514/tn_camera_modules_jp514.tar.gz
 ```
@@ -104,13 +104,13 @@ wget https://download.technexion.com/demo_software/EVK/NVIDIA/OrinNano/pre-built
 2. uncompress the modules.
 
 ```shell
-tar -xf tn_camera_modules.tar.gz
+tar -xf tn_camera_modules_<JP_Ver>.tar.gz
 ```
 
 3. Run installation script.
 
 ```shell'
-cd tn_camera_modules/
+cd tn_camera_modules_<built_time>/
 ./tn_install.sh
 ```
 
